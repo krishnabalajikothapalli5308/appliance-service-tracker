@@ -12,7 +12,9 @@ from database import db, Appliance, ServiceRequest, Technician
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///appliance_tracker.db'
+import os
+DB_PATH = os.path.join('/tmp', 'appliance_tracker.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_PATH}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'gea-tracker-secret-2025'
 
