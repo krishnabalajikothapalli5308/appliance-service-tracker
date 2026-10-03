@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiceTrack – GE Appliances</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── SIDEBAR ──────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-title">ServiceTrack</div>
+      <div class="brand-sub">GE Appliances</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main Menu</div>
+
+    <a class="nav-link active" onclick="showSection('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+      Dashboard
+    </a>
+
+    <a class="nav-link" onclick="showSection('appliances', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+      </svg>
+      Appliances
+    </a>
+
+    <a class="nav-link" onclick="showSection('service-requests', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+      Service Requests
+    </a>
+
+    <a class="nav-link" onclick="showSection('technicians', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      Technicians
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="/technician" class="switch-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <polyline points="16 11 18 13 22 9"/>
+      </svg>
+      Technician View
+    </a>
+  </div>
+</aside>
+
+<!-- ── MAIN ──────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <span class="topbar-badge" id="topbar-badge">Overview</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-dot"></div>
+      <div class="topbar-time" id="topbar-time"></div>
+    </div>
+  </header>
+
+  <!-- ── DASHBOARD ──────────────────────────────────── -->
+  <section id="section-dashboard" class="section active">
+
+    <div class="stat-grid">
+      <div class="stat-card blue">
+        <div class="stat-top">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="stat-appliances">—</div>
+        <div class="stat-label">Total Appliances</div>
+      </div>
+
+      <div class="stat-card red">
+        <div class="stat-top">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="stat-open">—</div>
+        <div class="stat-label">Open Requests</div>
+      </div>
+
+      <div class="stat-card yellow">
+        <div class="stat-top">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="stat-inprogress">—</div>
+        <div class="stat-label">In Progress</div>
+      </div>
+
+      <div class="stat-card green">
+        <div class="stat-top">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="stat-completed">—</div>
+        <div class="stat-label">Completed</div>
+      </div>
+
+      <div class="stat-card purple">
+        <div class="stat-top">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+        </div>
+        <div class="stat-value" id="stat-technicians">—</div>
+        <div class="stat-label">Technicians</div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-header-title">Recent Service Requests</div>
+        <div class="table-header-sub" id="dash-count">Loading...</div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Appliance</th><th>Issue</th>
+            <th>Priority</th><th>Status</th><th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="dashboard-table">
+          <tr><td colspan="6" class="loading">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── APPLIANCES ──────────────────────────────────── -->
+  <section id="section-appliances" class="section">
+    <div class="section-toolbar">
+      <button class="btn btn-primary" onclick="openModal('modal-add-appliance')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Appliance
+      </button>
+    </div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-header-title">Appliance Inventory</div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Model</th><th>Serial</th><th>Location</th><th>Status</th><th>Requests</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="appliances-table">
+          <tr><td colspan="8" class="loading">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SERVICE REQUESTS ────────────────────────────── -->
+  <section id="section-service-requests" class="section">
+    <div class="section-toolbar">
+      <button class="btn btn-primary" onclick="openModal('modal-add-request')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Request
+      </button>
+      <select id="filter-status" onchange="loadServiceRequests()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="open">Open</option>
+        <option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-header-title">Service Requests</div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>ID</th><th>Appliance</th><th>Issue</th><th>Priority</th><th>Status</th><th>Technician</th><th>Date</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="requests-table">
+          <tr><td colspan="8" class="loading">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── TECHNICIANS ─────────────────────────────────── -->
+  <section id="section-technicians" class="section">
+    <div class="section-toolbar">
+      <button class="btn btn-primary" onclick="openModal('modal-add-technician')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Technician
+      </button>
+    </div>
+    <div class="technician-grid" id="technician-grid">
+      <div class="loading">Loading...</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── MODALS ──────────────────────────────────────── -->
+
+<div id="modal-add-appliance" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal-add-appliance')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Appliance</div>
+      <button class="modal-close" onclick="closeModal('modal-add-appliance')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Name *</label><input id="a-name" class="form-input" placeholder="e.g. Refrigerator" /></div>
+    <div class="form-group"><label class="form-label">Model *</label><input id="a-model" class="form-input" placeholder="e.g. GE Profile PFE28KYNFS" /></div>
+    <div class="form-group"><label class="form-label">Serial Number</label><input id="a-serial" class="form-input" placeholder="e.g. SN10028" /></div>
+    <div class="form-group"><label class="form-label">Location</label><input id="a-location" class="form-input" placeholder="e.g. Kitchen Block A" /></div>
+    <div class="form-group"><label class="form-label">Purchase Date</label><input id="a-date" class="form-input" type="date" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-appliance')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAddAppliance()">Add Appliance</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-add-request" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal-add-request')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">New Service Request</div>
+      <button class="modal-close" onclick="closeModal('modal-add-request')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Appliance *</label><select id="r-appliance" class="form-input"></select></div>
+    <div class="form-group"><label class="form-label">Issue Description *</label><textarea id="r-issue" class="form-input" placeholder="Describe the issue in detail..."></textarea></div>
+    <div class="form-group"><label class="form-label">Priority</label>
+      <select id="r-priority" class="form-input">
+        <option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-request')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAddRequest()">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-assign" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal-assign')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Edit Service Request</div>
+      <button class="modal-close" onclick="closeModal('modal-assign')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Assign Technician</label><select id="assign-tech" class="form-input"></select></div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select id="assign-status" class="form-input">
+        <option value="open">Open</option><option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option><option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="assign-notes" class="form-input" placeholder="Add service notes..."></textarea></div>
+    <input type="hidden" id="assign-req-id" />
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-assign')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAssign()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-add-technician" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal-add-technician')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add Technician</div>
+      <button class="modal-close" onclick="closeModal('modal-add-technician')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Full Name *</label><input id="t-name" class="form-input" placeholder="e.g. Rajesh Kumar" /></div>
+    <div class="form-group"><label class="form-label">Specialization *</label><input id="t-spec" class="form-input" placeholder="e.g. Refrigeration & HVAC" /></div>
+    <div class="form-group"><label class="form-label">Contact Number</label><input id="t-contact" class="form-input" placeholder="Phone number" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-add-technician')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitAddTechnician()">Add Technician</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/static/js/main.js"></script>
+</body>
+</html>

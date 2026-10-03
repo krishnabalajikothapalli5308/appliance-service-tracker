@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiceTrack – Technician Portal</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-title">ServiceTrack</div>
+      <div class="brand-sub">Technician Portal</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-label">Portal</div>
+    <a class="nav-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      My Jobs
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="/" class="switch-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Back to Admin
+    </a>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title">Technician Portal</div>
+      <span class="topbar-badge">Field View</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-dot"></div>
+      <div class="topbar-time" id="topbar-time"></div>
+    </div>
+  </header>
+
+  <section class="section active">
+    <div class="section-toolbar">
+      <select id="tech-filter" onchange="loadTechJobs()" class="filter-select">
+        <option value="">Select Technician...</option>
+      </select>
+      <select id="status-filter" onchange="loadTechJobs()" class="filter-select">
+        <option value="">All Status</option>
+        <option value="open">Open</option>
+        <option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-header-title">Assigned Jobs</div>
+        <div class="table-header-sub" id="job-count"></div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>ID</th><th>Appliance</th><th>Model</th><th>Issue</th><th>Priority</th><th>Status</th><th>Notes</th><th>Action</th></tr>
+        </thead>
+        <tbody id="tech-table">
+          <tr><td colspan="8" class="loading">Select a technician to view assigned jobs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div id="modal-update" class="modal-overlay" onclick="closeModalOnOverlay(event,'modal-update')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Update Job Status</div>
+      <button class="modal-close" onclick="closeModal('modal-update')">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select id="update-status" class="form-input">
+        <option value="open">Open</option><option value="in_progress">In Progress</option>
+        <option value="completed">Completed</option><option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Service Notes</label>
+      <textarea id="update-notes" class="form-input" placeholder="Add service remarks, parts replaced, findings..."></textarea>
+    </div>
+    <input type="hidden" id="update-req-id" />
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-update')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitUpdate()">Update Job</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/static/js/technician.js"></script>
+</body>
+</html>
