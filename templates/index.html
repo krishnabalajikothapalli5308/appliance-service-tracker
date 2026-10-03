@@ -68,12 +68,18 @@
   </div>
 </aside>
 
+<!-- Sidebar overlay for mobile tap-to-close -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
 <!-- ── MAIN ──────────────────────────────────────────── -->
 <main class="main">
 
   <!-- TOPBAR -->
   <header class="topbar">
     <div class="topbar-left">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
       <div class="topbar-title" id="topbar-title">Dashboard</div>
       <span class="topbar-badge" id="topbar-badge">Overview</span>
     </div>
@@ -154,6 +160,7 @@
         <div class="table-header-title">Recent Service Requests</div>
         <div class="table-header-sub" id="dash-count">Loading...</div>
       </div>
+      <div class="table-scroll">
       <table class="data-table">
         <thead>
           <tr>
@@ -165,6 +172,7 @@
           <tr><td colspan="6" class="loading">Loading data...</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
@@ -180,6 +188,7 @@
       <div class="table-header">
         <div class="table-header-title">Appliance Inventory</div>
       </div>
+      <div class="table-scroll">
       <table class="data-table">
         <thead>
           <tr><th>ID</th><th>Name</th><th>Model</th><th>Serial</th><th>Location</th><th>Status</th><th>Requests</th><th>Actions</th></tr>
@@ -188,6 +197,7 @@
           <tr><td colspan="8" class="loading">Loading...</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
@@ -210,6 +220,7 @@
       <div class="table-header">
         <div class="table-header-title">Service Requests</div>
       </div>
+      <div class="table-scroll">
       <table class="data-table">
         <thead>
           <tr><th>ID</th><th>Appliance</th><th>Issue</th><th>Priority</th><th>Status</th><th>Technician</th><th>Date</th><th>Actions</th></tr>
@@ -218,6 +229,7 @@
           <tr><td colspan="8" class="loading">Loading...</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
@@ -316,5 +328,26 @@
 
 <div id="toast" class="toast"></div>
 <script src="/static/js/main.js"></script>
+<script>
+  function toggleSidebar() {
+    const sidebar  = document.querySelector('.sidebar');
+    const overlay  = document.getElementById('sidebar-overlay');
+    const hamburger = document.getElementById('hamburger');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.querySelector('.sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  // Close sidebar when a nav link is clicked on mobile
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 760) closeSidebar();
+    });
+  });
+</script>
 </body>
 </html>

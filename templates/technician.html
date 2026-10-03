@@ -40,9 +40,14 @@
   </div>
 </aside>
 
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
 <main class="main">
   <header class="topbar">
     <div class="topbar-left">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+      </button>
       <div class="topbar-title">Technician Portal</div>
       <span class="topbar-badge">Field View</span>
     </div>
@@ -69,6 +74,7 @@
         <div class="table-header-title">Assigned Jobs</div>
         <div class="table-header-sub" id="job-count"></div>
       </div>
+      <div class="table-scroll">
       <table class="data-table">
         <thead>
           <tr><th>ID</th><th>Appliance</th><th>Model</th><th>Issue</th><th>Priority</th><th>Status</th><th>Notes</th><th>Action</th></tr>
@@ -77,6 +83,7 @@
           <tr><td colspan="8" class="loading">Select a technician to view assigned jobs</td></tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 </main>
@@ -106,5 +113,20 @@
 
 <div id="toast" class="toast"></div>
 <script src="/static/js/technician.js"></script>
+<script>
+  function toggleSidebar() {
+    const sidebar   = document.querySelector('.sidebar');
+    const overlay   = document.getElementById('sidebar-overlay');
+    const hamburger = document.getElementById('hamburger');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.querySelector('.sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+</script>
 </body>
 </html>
